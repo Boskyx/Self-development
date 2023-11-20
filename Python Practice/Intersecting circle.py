@@ -71,7 +71,7 @@ win.wait()
 
 """
 NOTES
-    1)Alcune volte sbaglia nel capire che il secondo cerchio e' incluso nel primo, perche' risulta che la dist non e' minore della diff dei 2 raggi
-        Bug risolto, errore nella formula Euclidean Distance, in quanto la aggiustavo spostandone il centro.
+    1)Sometimes it makes a mistake in understanding that the second circle is included in the first, because it turns out that the distance is not less than the difference of the 2*radius. 
+        Bug fixed, error in the Euclidean Distance formula, as I adjusted it by moving its center.
 
 """
