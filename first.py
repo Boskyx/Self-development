@@ -1,4 +1,3 @@
-first time of using Github
-poop
-try to change
-
+movimenti=[]
+movimentox, movimentoy = 1, 5
+movimenti.append(list((movimentox, movimentoy)))
