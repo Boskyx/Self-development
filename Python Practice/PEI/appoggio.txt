@@ -1,0 +1,12 @@
+dial_codes = [
+(880, 'Bangladesh'),
+(55, 'Brazil'),
+(86, 'China'),
+(91, 'India'),
+(62, 'Indonesia'),
+(81, 'Japan'),
+(234, 'Nigeria'),
+(92, 'Pakistan'),
+(7,'Russia'),
+(1,'United States'),
+]
