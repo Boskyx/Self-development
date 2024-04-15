@@ -24,6 +24,7 @@ class Robot:
             self.labirinto.append(list(linea))
         if self.labirinto[self.pos_y][self.pos_x]=="X":
             print('errata posizione di partenza')
+            return
         print(f'il robot parte da x:{self.pos_x}', f'y:{self.pos_y}')
         while self.pos_x != int(self.endx.strip()) or self.pos_y != int(self.endy.strip()):
             self.spostamento=self.analisi_spostamento(self.labirinto, self.pos_x, self.pos_y)
