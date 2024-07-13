@@ -1,5 +1,6 @@
 import random
-class Robot:
+from DrawClass import Draw
+class Robot():
     def __init__(self, name_file):
         self.contatore_movimento=0
         self.name_file=name_file
