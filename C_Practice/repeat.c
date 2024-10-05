@@ -54,8 +54,8 @@ int main(void)
                 continue;}
             else if (seq[k]==seq[j]){ 
                     while(x<i){
-                        if(rep[x]==seq[k]) {x++; check++; continue;}
-                        else if (rep[x]!=seq[k]){x++;}
+                        if(rep[x]==seq[k]) {x++; check++;}
+                        else{x++;}
                         }
                     x=0;
                     if(check==0){
@@ -63,7 +63,7 @@ int main(void)
                         j++;
                         sequ++;
                         }
-                    else {continue; j++;}
+                    else {j++;}
                 }
             else if (seq[k]!=seq[j])
                 j++;
