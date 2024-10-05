@@ -6,7 +6,6 @@ int main(void)
     int len;
     printf("Enter the message: ");
     ch=getchar();
-    printf("%c\n", ch);
     while (ch!='\n'){
         len++;
         ch=getchar();
