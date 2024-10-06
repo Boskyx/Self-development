@@ -45,35 +45,40 @@ int main(void)
         i++;
         ch=getchar();
     }
+    printf("There are %d digits\n", i);
     /*Check if there are repeated digits and if the final array already has the digit*/
-    int rep[i], k=0, j=0, sequ=0, pri=0, x=0, check=0;
-    while(k<i){
-        while(j<i){
-            if (k==j){
-                j++;
-                continue;}
-            else if (seq[k]==seq[j]){ 
-                    while(x<i){
-                        if(rep[x]==seq[k]) {x++; check++;}
-                        else{x++;}
-                        }
-                    x=0;
-                    if(check==0){
-                        rep[sequ]=seq[k];
-                        j++;
-                        sequ++;
-                        }
-                    else {j++;}
+    int rep[i], k=0, j=1, sequ=0, pri=0, x=0, check=0;
+    while(k<i)
+    {
+        while(j<i)
+        {
+            if (seq[k]==seq[j])
+            { 
+                while(x<sequ+1)
+                {
+                    if(rep[x]==seq[k]) {x++; check++;}
+                    else{x++;}
                 }
-            else if (seq[k]!=seq[j])
-                j++;
+                x=0;
+                if(check==0)
+                {
+                    rep[sequ]=seq[k];
+                    j++;
+                    sequ++;
+                }
+                else {j++; check=0;}
+                break; //in that way if there is a corrispondences the while is stopped and k is increases
             }
+            else
+                j++;
+        }
         k++;
-        j=k;
+        j=k+1;
     }
+    if(sequ==0) {printf("There aren't repeated digits\n");}
     while(pri<sequ)
     {
-        printf("The repeated digits are: %d\n", rep[pri]);
+        printf("The repeated digit is: %d\n", rep[pri]);
         pri++;
     }
     return 0;
