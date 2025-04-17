@@ -67,7 +67,7 @@ int main(void)
                     sequ++;
                 }
                 else {j++; check=0;}
-                break; //in that way if there is a corrispondences the while is stopped and k is increases
+                break; //in that way if there is a corrispondence the while is stopped and k is increases
             }
             else
                 j++;

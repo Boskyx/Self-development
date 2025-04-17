@@ -10,6 +10,6 @@ int main(void)
     printf("In revers order:");
     for(i=N-1; i>=0; i--)
         printf(" %d", series[i]);
-    print("\n");
+    printf("\n");
     return 0;
 }
