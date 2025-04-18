@@ -8,3 +8,4 @@ GIT COMMANDS:
 2) git commit -m "message that you want for the commit"
 3) git push (push the changes in the github repository)
 
+changes for check v2 compared to origin
