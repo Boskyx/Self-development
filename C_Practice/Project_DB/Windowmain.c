@@ -92,6 +92,7 @@ void window()
                     }
                     letterCount=0;
                 }
+                //CHANGE SCREEN WINDOW BETWEEN INSERT OR READ BY SWITCHING CASE 
                 if (InsertPressed==1)
                 {
                     currentscreen=INSERT;
