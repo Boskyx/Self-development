@@ -1,13 +1,14 @@
 #include "raylib.h"
 #include <string.h>
 #include <stdio.h>
+#include "library.h"
 #include "Windowmain.h"
 #include "Windowmode.h"
 
 
 #define MAX_INPUT_CHARS 32
 // Keycode for enter button on keyboard is 257
-void window()
+void window(FILE *fp)
 {
     // Inizializza la finestra
     /*Creazione dell'enum così da gestire le 3 modalità della finestra
@@ -28,10 +29,16 @@ void window()
     Rectangle Insert = { screenWidth / 2+50 , screenHeight / 2 - 25, 100, 50 };
     Rectangle PasswordCheck = {0,0,10,10};
     Rectangle Passwordtest={5,50,80,30};
+    char name[MAX_INPUT_CHARS]="", password_insert[MAX_INPUT_CHARS]="";
+    int letterCountInsertName=0, letterCountInsertPasword=0, namePressed=0, passwordPressed=0;
+    Rectangle Name = { screenWidth / 2 -150, screenHeight / 2 - 25, 100, 50 };
+    Rectangle Password = { screenWidth / 2+50 , screenHeight / 2 - 25, 100, 50};
+    Rectangle Read_screen = { 3, 3, 700, 350 };
+    Rectangle Send = { screenWidth / 2 , screenHeight / 2 + 80, 100, 50};
     bool flagpassword=false; //flag false == RED, true == GREEN
     int ReadPressed=0;
     int InsertPressed=0;
-
+    int nameReady=0, passwordReady=0;
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
@@ -106,16 +113,75 @@ void window()
         
         case READ:
             {
-                readscreen(Read);
-            }
-            break;
+                readscreen(fp, Read_screen);
+            } break;
 
         case INSERT:
             {
-                insertscreen(Read);
-            }
-            break;
+                if (CheckCollisionPointRec(GetMousePosition(), Name)&&IsMouseButtonPressed(0)) 
+                {
+                    if(namePressed==0) {namePressed=1;}
+                    else {namePressed=0;}
 
+                }
+                if (CheckCollisionPointRec(GetMousePosition(), Password)&&IsMouseButtonPressed(0)) 
+                {
+                    if(passwordPressed==0) {passwordPressed=1;}
+                    else {passwordPressed=0;}
+                }
+                if (CheckCollisionPointRec(GetMousePosition(), Send)&&IsMouseButtonPressed(0)) 
+                {
+                    push(fp, name, password_insert);
+                    name[0]='\0';
+                    letterCountInsertName=0;
+                    password_insert[0]='\0';
+                    letterCountInsertPasword=0;
+                    currentscreen=HOME;
+                }
+
+                /*
+                ########################################
+                NAME INPUT
+                ########################################
+                */
+
+                if (namePressed==1 && passwordPressed==0)
+                {
+                    int key = GetCharPressed();
+                    while (key > 0)
+                    {
+                        if ((key >= 32) && (key <= 125) && (letterCountInsertName < MAX_INPUT_CHARS))
+                        {
+                            name[letterCountInsertName] = (char)key;
+                            name[letterCountInsertName + 1] = '\0'; // Null-terminate
+                            letterCountInsertName++;
+                        }
+                        key = GetCharPressed();
+                    }
+                }
+
+                /*
+                ########################################
+                PASSWORD INPUT
+                ########################################
+                */
+           
+                if (passwordPressed==1 && namePressed==0)
+                {
+                    int key = GetCharPressed();
+                    while (key > 0)
+                    {
+                        if ((key >= 32) && (key <= 125) && (letterCountInsertPasword < MAX_INPUT_CHARS))
+                        {
+                            password_insert[letterCountInsertPasword] = (char)key;
+                            password_insert[letterCountInsertPasword + 1] = '\0'; // Null-terminate
+                            letterCountInsertPasword++;
+                        }
+                        key = GetCharPressed();
+                    }
+                }
+                insertscreen(fp, Name, Password, Send, name, password_insert, namePressed, passwordPressed);
+            } break;
 
         }
 

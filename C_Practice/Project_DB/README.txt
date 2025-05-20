@@ -61,3 +61,55 @@ NOT DO
 - create the 2 windows for READ and Insert
 - join the main code with the 2 window to manage the way of inserting or reading the information from and on the 
   db file
+
+#########################
+Update date: 27.04.2025 #
+#########################
+
+PROBLEM
+-   in INSERT mode when you put some letters it refresh immediately and it doesn save the entire string
+
+DONE
+-   Modified the main so the struct db is only inside the libray.c
+-   Modified the windowsmain.c now it take the FILE *fp (the opening and close is in the main.c) as argumetn for the 2 windows mode 
+-   Windowmode now for the INSERT screen create 2 boxes (Name and password) + 1 red for the send function (it will call the push() to insert on the db)
+
+NOT DO
+-   Creation of the 2 windows for READ and Insert
+-   Join the main code with the 2 window to manage the way of inserting or reading the information from and on the 
+    db file
+
+
+#########################
+Update date: 28.04.2025 #
+#########################
+
+PROBLEM
+-   in INSERT mode when you put some letters it refresh immediately and it doesn't save the entire string
+    RESOLVED but i had to put the entire code of the InsertMode on the windowmain file, this is not very helpfull
+
+
+DONE
+-   Adjusted the windowmain now it call the push() and insert the name
+
+
+NOT DO
+-   adjusted in the windowmain when you write the name and passwrod the send button doesnt work
+
+
+#########################
+Update date: 11.05.2025 #
+#########################
+
+
+PROBLEM
+-   When you run the programm it goes in segmentation fault (core dumped)
+    -> RESOLVED because when you run the program you have to specify in the terminal the name of the file
+
+DONE
+-   Resolved, the password is correctly insert in the database file 
+-   Delete part of the code in the push() function, it doesn't required the linked list approach, it has only to write the things inside the .txt file
+
+NOT DO
+-   Resolve the problem when you click the read button it prints the linked list from the last entry to the first, but in this case we need the inverse list 
+    I tried to reverse it but it doesnt work now

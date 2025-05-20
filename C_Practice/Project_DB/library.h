@@ -1,6 +1,6 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
-void push();
-void find();
-void clear_buffer();
+#include <stdio.h>
+void push(FILE *fp, char name[], char password[]);
+struct db* find(FILE *fp);
 #endif
