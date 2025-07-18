@@ -5,9 +5,11 @@
 #include "Windowmode.h"
 #include "library.h"
 
+/*
+TO RUN THE PROGRAM "SUDO ./MAIN DATABASE.TXT"
+*/
+
 FILE *fp;
-/*The MAIN 
-THE CODE IS TO BE ADJUSTET FOR NOW I HAVE ONLY MANAGED THE WINDOW FILE FOR NOW*/
 int main(int argc, char *argv[])
 {
     char insert, *database=argv[1], buffer[1];
@@ -15,12 +17,11 @@ int main(int argc, char *argv[])
     fp=fopen(database, "a+");
     if((ByteRead=fread(buffer, 1, sizeof(buffer),fp))==0)
         {
-            fprintf(fp, "Nome         Password\n");
-            fprintf(fp, "----         --------\n");
+            fprintf(fp, "Sito                   Password\n");
+            fprintf(fp, "--------------         -------------\n");
         }
     
     window(fp);
     fclose(fp);
 }
-
 

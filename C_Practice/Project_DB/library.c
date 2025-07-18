@@ -3,32 +3,23 @@
 #include <stdlib.h>
 #include "Windowmain.h"
 #include "library.h"
-struct db {
-    char row[100];
-    struct db *next;
-};
-struct db *first = NULL;
+int first_position=0;
 void push(FILE *fp, char name[], char password[])
 {
-
-    fprintf(fp, "%-10s", name);
-    fprintf(fp, "%20s", password);
+    char results_name[50],results_password[50], final[50];
+    int i=0;
+    for(i; i<strlen(name);i++)
+    {
+        results_name[i]=name[i]^2;
+    }
+    results_name[i]='\0';
+    i=0;
+    for(i; i<strlen(password);i++)
+    {
+        results_password[i]=password[i]^2;
+    }
+    results_password[i]='\0';
+    fprintf(fp, "%-23s %s", results_name, results_password);
     fputs("\n",fp);
-}
-struct db* find(FILE *fp)
-{
-    
-    rewind(fp);
-    struct db *new_node;
-    static char buffer[100];
-    while(fgets(buffer, sizeof(buffer), fp)!=NULL)
-        {
-            new_node=malloc(sizeof(struct db));
-            strncpy(new_node->row, buffer, sizeof(new_node->row)-1);    
-            new_node->row[sizeof(new_node->row)-1]='\0';
-            new_node->next=first;
-            first=new_node;
-        }
-    return first;
 }
 

@@ -27,14 +27,16 @@ void window(FILE *fp)
     int letterCount = 0;
     Rectangle Read = { screenWidth / 2 -150, screenHeight / 2 - 25, 100, 50 };
     Rectangle Insert = { screenWidth / 2+50 , screenHeight / 2 - 25, 100, 50 };
+    Rectangle Home = { screenWidth -30, 0 , 30, 30};
     Rectangle PasswordCheck = {0,0,10,10};
     Rectangle Passwordtest={5,50,80,30};
     char name[MAX_INPUT_CHARS]="", password_insert[MAX_INPUT_CHARS]="";
     int letterCountInsertName=0, letterCountInsertPasword=0, namePressed=0, passwordPressed=0;
-    Rectangle Name = { screenWidth / 2 -150, screenHeight / 2 - 25, 100, 50 };
-    Rectangle Password = { screenWidth / 2+50 , screenHeight / 2 - 25, 100, 50};
-    Rectangle Read_screen = { 3, 3, 700, 350 };
-    Rectangle Send = { screenWidth / 2 , screenHeight / 2 + 80, 100, 50};
+    Rectangle Name = { screenWidth / 4 -50, screenHeight / 2 - 25, 100, 50 };
+    Rectangle Password = { screenWidth / 2+50 , screenHeight / 2 - 25, 200, 50};
+    Rectangle Read_screen = { 3, 3, 800, 450 };
+    Rectangle Send = { screenWidth / 2-25 , screenHeight / 2 + 112.5, 50, 50};
+
     bool flagpassword=false; //flag false == RED, true == GREEN
     int ReadPressed=0;
     int InsertPressed=0;
@@ -103,17 +105,21 @@ void window(FILE *fp)
                 if (InsertPressed==1)
                 {
                     currentscreen=INSERT;
+                    InsertPressed=0;
                 }
                 if (ReadPressed==1)
                 {
                     currentscreen=READ;
+                    ReadPressed=0;
                 }
                 homescreen(flagpassword, Read, Insert, PasswordCheck, Passwordtest, password, text);
             } break;
         
         case READ:
             {
-                readscreen(fp, Read_screen);
+                int delete_row=readscreen(fp, Read_screen, Home);
+                if (CheckCollisionPointRec(GetMousePosition(), Home)&&IsMouseButtonPressed(0)||delete_row==1) {currentscreen=HOME; fp=fopen("database.txt", "a+");}
+                
             } break;
 
         case INSERT:
@@ -129,16 +135,18 @@ void window(FILE *fp)
                     if(passwordPressed==0) {passwordPressed=1;}
                     else {passwordPressed=0;}
                 }
-                if (CheckCollisionPointRec(GetMousePosition(), Send)&&IsMouseButtonPressed(0)) 
+                if (CheckCollisionPointRec(GetMousePosition(), Send)&&IsMouseButtonPressed(0)&&nameReady==1&&passwordReady==1) 
                 {
                     push(fp, name, password_insert);
                     name[0]='\0';
                     letterCountInsertName=0;
                     password_insert[0]='\0';
                     letterCountInsertPasword=0;
+                    nameReady=0;
+                    passwordReady=0;
                     currentscreen=HOME;
                 }
-
+                if (CheckCollisionPointRec(GetMousePosition(), Home)&&IsMouseButtonPressed(0)) {currentscreen=HOME;}
                 /*
                 ########################################
                 NAME INPUT
@@ -158,6 +166,7 @@ void window(FILE *fp)
                         }
                         key = GetCharPressed();
                     }
+                    nameReady=1;
                 }
 
                 /*
@@ -179,8 +188,9 @@ void window(FILE *fp)
                         }
                         key = GetCharPressed();
                     }
+                    passwordReady=1;
                 }
-                insertscreen(fp, Name, Password, Send, name, password_insert, namePressed, passwordPressed);
+                insertscreen(fp, Name, Home,Password, Send, name, password_insert, namePressed, passwordPressed);
             } break;
 
         }

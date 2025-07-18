@@ -113,3 +113,59 @@ DONE
 NOT DO
 -   Resolve the problem when you click the read button it prints the linked list from the last entry to the first, but in this case we need the inverse list 
     I tried to reverse it but it doesnt work now
+
+
+#########################
+Update date: 21.05.2025 #
+#########################
+
+DONE
+-   Resolved the problem linked with the Read button for the Read screen, it went in segmentation fault caused by the while loop tha was infinite
+-   Resolved the problem with READ, cancelled the linked list and in the Windowmode we read directly the file and print the buffer, easy and fast
+-   Insert a button in READ and INSERT to go in the HOME
+
+TO DO
+-   Change the Read screen
+-   Creation of a cryption system (i started it but the decription doesn work very well)
+
+
+#########################
+Update date: 22.05.2025 #
+#########################
+
+DONE
+-   Created a Cryptograph system, now if you read the txt file you are not able to understand name and passwords inserted
+-   Changed the Read Screen 
+
+TO DO
+-   Create a way to delete some entry, from READ screen you can select the entry e press delete
+    After the delete the file will have removed the row and bring up by 1 row all the other entries
+
+#########################
+Update date: 24.05.2025 #
+#########################
+
+TO DO
+-   2 new functions for delete anche check in what box you are clicking (it will help maybe for select the correct row when you want to delete something into the txt file)
+
+
+#########################
+Update date: 24.05.2025 #
+#########################
+
+DONE
+-   implemented the raygui library to create button on the read mode
+
+
+#########################
+Update date: 02.06.2025 #
+#########################
+
+TO DO 
+-   Create 2 functions delete_row and change_row to handle if you want to change name or password of a line or if you want to delete completelly
+
+DONE
+-   Created the delete_row function it creates a copy of the file and put inside all the rows expection for the one selected for the delete
+
+PROBLEM
+-   It goes back to the home but it doesnt update the file so you will keep see the row deleted
