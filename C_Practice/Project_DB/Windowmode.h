@@ -1,6 +1,6 @@
 #ifndef WINDOWREAD_H
 #define WINDOWREAD_H
-#include "raylib.h"
+#include "/home/boskyx/Documents/raylib/src/raylib.h"
 #include "raygui.h"
 #include <stdbool.h>
 #include <stdio.h>

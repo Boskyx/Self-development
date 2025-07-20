@@ -1,3 +1,5 @@
+RAYLIB_PATH:= $(shell find / -type f -name raylib.h 2>/dev/null | head -n 1);\
+
 main: main.o Windowmain.o Windowmode.o library.o
 	sudo gcc -o main main.o Windowmain.o Windowmode.o library.o -lraylib -lm -ldl -lpthread -lrt -lGL
 main.o: main.c Windowmain.h Windowmode.h library.h

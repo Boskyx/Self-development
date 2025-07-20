@@ -1,4 +1,4 @@
-#include "raylib.h"
+#include "/home/boskyx/Documents/raylib/src/raylib.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -92,7 +92,7 @@ int readscreen(FILE *file, Rectangle Read_screen,Rectangle Home)
                 //Rectangle output_screen = { 0, y, 300, 17 };
                 //DrawRectangleRec(output_screen, WHITE);
                 DrawText(decript, Read_screen.x, Read_screen.y+y , 20, BLACK);
-                if (GuiButton((Rectangle){ 300, Read_screen.y+y, 15, 15 }, "#191#")) showMessageBox[message_box] = true;
+                if (GuiButton((Rectangle){ 400, Read_screen.y+y, 15, 15 }, "#191#")) showMessageBox[message_box] = true;
                 y+=20; 
                 message_box++;
             }

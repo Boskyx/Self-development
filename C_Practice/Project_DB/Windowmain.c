@@ -1,4 +1,4 @@
-#include "raylib.h"
+#include "/home/boskyx/Documents/raylib/src/raylib.h"
 #include <string.h>
 #include <stdio.h>
 #include "library.h"

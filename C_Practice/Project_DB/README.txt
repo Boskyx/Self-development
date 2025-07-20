@@ -169,3 +169,17 @@ DONE
 
 PROBLEM
 -   It goes back to the home but it doesnt update the file so you will keep see the row deleted
+
+#########################
+Update date: 20.07.2025 #
+#########################
+
+TO DO
+-   Linked the info box on the readscreen to the Password, in that way it doesn't go in overlapping
+-   Use the makefile to find the path of raylib and automated the include of the path
+-   CREATE the first screen where you ask for the password and if corret you go in the main screen
+
+DONE
+-   Discoverd that the #include could not handle a variabile because the preprocessor starts before the compiler and the makefile
+    But with FILES := $(shell find / -type f -name raylib.h 2>/dev/null | head -n 1) you can store the path inside the var FILES 
+    Here we use head -n 1 because there are 2 paths but we want only the first one

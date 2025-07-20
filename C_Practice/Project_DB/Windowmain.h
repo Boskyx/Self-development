@@ -2,7 +2,7 @@
 #define WINDOWMAIN_H
 #include <stdio.h>
 #include <stdbool.h>
-#include "raylib.h"
+#include "/home/boskyx/Documents/raylib/src/raylib.h"
 #include "library.h"
 void window(FILE *file);
 void homescreen(bool flag, Rectangle Read, Rectangle Insert, Rectangle PasswordCheck, Rectangle PasswordTest, char password [], char text[]);
