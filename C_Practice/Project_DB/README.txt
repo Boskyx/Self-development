@@ -1,3 +1,5 @@
+PROVA DI PULL
+
 The aim of the project is to create a db that can store name and password.
 Data will be insert by a UX that permits to insert name and pass and push on the db (button send not now implemented)
 The first window will have 2 options
