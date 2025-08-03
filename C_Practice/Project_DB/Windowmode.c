@@ -6,11 +6,27 @@
 #include "Windowmode.h"
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
-#include "library.h"
 
 #define MAX_INPUT_CHARS 32
 // Keycode for enter button on keyboard is 257
-void homescreen(bool flag,  Rectangle Read,  Rectangle Insert, Rectangle PasswordCheck, Rectangle PasswordTest, char password [], char text[])
+
+void log_in_page(Rectangle log_in_ins_passw, Rectangle log_in_send_pass,char Master_Key[], int log_in_new_passw, int master_key_sent, int log_in_send_button)
+{	
+	BeginDrawing();                              
+        ClearBackground(RAYWHITE);               
+        DrawRectangleRec(log_in_ins_passw,LIGHTGRAY);
+	DrawRectangleRec(log_in_send_pass,BLUE); 
+	DrawText("Key_Master is not present.\nCreate the new now.", 10, 50, 30, BLACK);
+	DrawRectangleLinesEx(log_in_ins_passw, 5, (log_in_new_passw==0)? LIGHTGRAY : GREEN);
+	DrawRectangleLinesEx(log_in_send_pass, 5, (log_in_send_button==0)? LIGHTGRAY : GREEN);
+	if (master_key_sent==1) {DrawText("Master Key successfully stored!!!",log_in_send_pass.x, log_in_send_pass.y+55, 20,GREEN);}
+	DrawText(Master_Key, log_in_ins_passw.x+5, log_in_ins_passw.y+5, 20, BLACK);
+	EndDrawing();
+
+}
+
+
+void homescreen(bool flag,  Rectangle Read,  Rectangle Insert, Rectangle PasswordCheck, Rectangle PasswordTest, char text[])
 {
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -29,9 +45,8 @@ void homescreen(bool flag,  Rectangle Read,  Rectangle Insert, Rectangle Passwor
         DrawText(text, PasswordTest.x + 5, PasswordTest.y + 15, 15, BLACK);
         EndDrawing();
 }
-void insertscreen(FILE *file, Rectangle Name, Rectangle Home,Rectangle Password, Rectangle Send, char name[], char password[], int namePressed, int passwordPressed)
+void insertscreen(Rectangle Name, Rectangle Home,Rectangle Password, Rectangle Send, char name[], char password[], int namePressed, int passwordPressed)
 {
-        //TO DO -> UNDERSTAND HOW TO USE THE OPENING OF FP FILE ETC...
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -39,7 +54,6 @@ void insertscreen(FILE *file, Rectangle Name, Rectangle Home,Rectangle Password,
         DrawRectangleRec(Password, LIGHTGRAY);
         DrawRectangleRec(Send, LIGHTGRAY);
         DrawRectangleRec(Home, BLUE);
-        //DrawRectangleRec(Send, RED);
         DrawText("Sito", Name.x, Name.y - 15, 20, BLACK);
         DrawText("Password", Password.x , Password.y - 15, 20, BLACK);
         DrawText("Send", Send.x , Send.y+10, 20, BLACK);

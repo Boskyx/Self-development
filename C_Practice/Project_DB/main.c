@@ -2,8 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Windowmain.h"
-#include "Windowmode.h"
-#include "library.h"
 
 /*
 TO RUN THE PROGRAM "SUDO ./MAIN DATABASE.TXT"
@@ -12,7 +10,7 @@ TO RUN THE PROGRAM "SUDO ./MAIN DATABASE.TXT"
 FILE *fp;
 int main(int argc, char *argv[])
 {
-    char insert, *database=argv[1], buffer[1];
+    char *database=argv[1], buffer[1];
     size_t ByteRead;
     fp=fopen(database, "a+");
     if((ByteRead=fread(buffer, 1, sizeof(buffer),fp))==0)
