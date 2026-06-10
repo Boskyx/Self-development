@@ -1,5 +1,3 @@
-PROVA DI PULL
-
 The aim of the project is to create a db that can store name and password.
 Data will be insert by a UX that permits to insert name and pass and push on the db (button send not now implemented)
 The first window will have 2 options
@@ -185,3 +183,57 @@ DONE
 -   Discoverd that the #include could not handle a variabile because the preprocessor starts before the compiler and the makefile
     But with FILES := $(shell find / -type f -name raylib.h 2>/dev/null | head -n 1) you can store the path inside the var FILES 
     Here we use head -n 1 because there are 2 paths but we want only the first one
+
+#########################
+Update date: 27.07.2025 #
+#########################
+
+TO DO 
+- Insert a Home_page in enum to handle the insert of the passw before go inside the Read and Insert Screen
+  If is the first time (so there isn't the Key.txt file) it ask to create from the home_page, after this one it only ask to insert it and it do the check if is correct.
+  Before that it encryp it in the txt file.	
+- Create the main page layout and the encryption of the password set by the user in the key.txt file.
+  Remember when do the check do decrypt it before.
+
+DONE BUT NOT COMPLETED
+- Insert the MAIN PAGE for handling the passw insert in Windowmain.c as enum and the switch case
+- Insert the main_page_screen functionr in the Windomode.c and .h  
+
+
+
+#########################
+Update date: 01.08.2025 #
+#########################
+
+TO DO
+- Implement home_page_screen (better if call it LOG IN PAGE), it has to open a main screen where it ask for a password before give you the possibility to select read o insert.
+- READ & INSERT need to give you the possibility to LOG OUT and came back to the LOG IN PAGE 
+
+
+#########################
+Update date: 03.08.2025 #
+#########################
+
+TO DO 
+- Finish the implementation for the log_in page
+- Log_in_page -> Fix the highlight of the box for the password insert (green when you click on it)
+- Log_in_page -> Fix the insertion of the Key and the store of it in the Private.txt file.
+- Log_in_page -> Insert the send button and manage the storing of the key in the Private.txt + message when the key was stored "successfully stored"
+- Log_in_page -> Complete the else function if the Private.txt exists and is not empty
+- Log_in_page -> Create the encryption system for the Key stored in the Private.txt file
+- Change the home_page, it doesn't required any more the password insertion
+
+DONE
+- Resolved the problem with the log_in page segm. fault, the way to check the file Private.txt is by using the fread() with a buffer with 1 byte as a check between the file and the buffer
+  The fread() reads the specified amount of data from one stream and stored it in the buffer. 
+  The function stored the first byte in the buffer and check if it's 0 or not.
+  0 stands for no data in the file given. 
+- Fixed the highlight of the box for the insertion
+- Log_in_page -> adjust the screen when the Private.txt is filled and now it check if you insert the correct password
+                 when the password is correct it automatically send in the Home Page.
+- Home_page -> change the logic, now it doesn't required the password and you can go in READ and INSERT
+
+
+NOT DO
+- Log_in_page need to encrypt the master_key when you put in the Private.txt!!! CREATE A SPECIFIC FUNCTION IN LIBRARY FOR ENCRYPTION AND DECRYPTION!!!
+- Home_page adjust the QUIT logic to come back to the log_in page

@@ -22,13 +22,11 @@ void window(FILE *fp)
     typedef enum {HOME, READ, INSERT, LOG_IN} ScreenMode;
     ScreenMode currentscreen = LOG_IN;
     InitWindow(ScreenWidth, ScreenHeight, "Project DataBase");
-    char text[MAX_INPUT_CHARS + 1] = "", sent[MAX_INPUT_CHARS + 1] = "", password[]="andrea"; // Buffer per il testo
     int letterCount = 0;
     Rectangle Read = { ScreenWidth / 2 -150, ScreenHeight / 2 - 25, 100, 50 };
     Rectangle Insert = { ScreenWidth / 2+50 , ScreenHeight / 2 - 25, 100, 50 };
     Rectangle Home = { ScreenWidth -30, 0 , 30, 30};
-    Rectangle PasswordCheck = {0,0,10,10};
-    Rectangle Passwordtest={5,50,80,30};
+    Rectangle log_out= {0,0,80,30};
     char name[MAX_INPUT_CHARS]="", password_insert[MAX_INPUT_CHARS]="";
     int letterCountInsertName=0, letterCountInsertPasword=0, namePressed=0, passwordPressed=0;
     Rectangle Name = { ScreenWidth / 4 -50, ScreenHeight / 2 - 25, 100, 50 };
@@ -37,14 +35,13 @@ void window(FILE *fp)
     Rectangle Send = { ScreenWidth / 2-25 , ScreenHeight / 2 + 113, 50, 50};
     Rectangle log_in_ins_passw= { ScreenWidth / 2-200, ScreenHeight / 2, 400, 50};
     Rectangle log_in_send_passw= { ScreenWidth / 2-200, ScreenHeight / 2+100, 100, 50};
-    bool flagpassword=false; //flag false == RED, true == GREEN
     int ReadPressed=0;
     int InsertPressed=0;
     int nameReady=0, passwordReady=0;
     int log_in_new_passw=0, log_in_send_button=0, master_key_sent=0;
     char Master_Key[MAX_INPUT_CHARS+1]="";
     SetTargetFPS(60);
-
+    char Master_Key_Input[MAX_INPUT_CHARS]="",Master_Key_File[MAX_INPUT_CHARS]="";
     while (!WindowShouldClose())
     {
 
@@ -70,7 +67,6 @@ void window(FILE *fp)
 					else{log_in_send_button=0;}	
 				}
 				if (log_in_new_passw==1){
-					ShowCursor();
 					int key =GetCharPressed();
 					while (key > 0)
 					 {
@@ -100,98 +96,61 @@ void window(FILE *fp)
 			}
 		else
 			{
-				char Master_Key_Input[MAX_INPUT_CHARS]="",Master_Key_File[MAX_INPUT_CHARS]="";
-				int key = GetCharPressed(), log_in_new_passw=0;
-				BeginDrawing();
-				ClearBackground(RAYWHITE);
-				DrawRectangleRec(log_in_ins_passw, LIGHTGRAY);
-				DrawText("Insert Master_Key", ScreenWidth/2, ScreenHeight/2, 30, BLACK);	
-				if (CheckCollisionPointRec(GetMousePosition(), log_in_ins_passw)&&IsMouseButtonPressed(0))
-				 {                                            
-					 log_in_new_passw=1;                                                     
-				 }                                                                               
-				while (key > 0&&log_in_new_passw==1)                                                     
-				  {                                                                                       
-					 if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
-					 {                                                                       
-					     Master_Key_Input[letterCount] = (char)key;
-					     Master_Key_Input[letterCount + 1] = '\0'; // Null-terminate                        
-					     letterCount++;                                                               
-					 }                                                                  
-					 key = GetCharPressed();                 
-												   
-				     // Rimuovi carattere con backspace                                                   
-					 if (IsKeyPressed(KEY_BACKSPACE))                                       
-					 {                                                                      
-						 if (letterCount > 0)                    
-						 {                                                         
-							 letterCount--;                                        
-							text[letterCount] = '\0';                                      
-						 }                      
-					}                                            
-				 } 	
+				rewind(log_in);				
+				if(CheckCollisionPointRec(GetMousePosition(), log_in_ins_passw)&&IsMouseButtonPressed(0))
+				{
+					if(log_in_new_passw==0){log_in_new_passw=1;}
+					else{log_in_new_passw=0;}	
+				}
+				if(CheckCollisionPointRec(GetMousePosition(), log_in_send_passw)&&IsMouseButtonPressed(0))
+				{
+					if(log_in_send_button==0){log_in_send_button=1;}
+					else{log_in_send_button=0;}	
+				}
+				
+				if (log_in_new_passw==1){
+					int key =GetCharPressed();
+					while (key > 0)
+					 {
+						if ((key >= 32) && (key <= 126) && (letterCount < MAX_INPUT_CHARS))
+						{
+						    Master_Key_Input[letterCount] = (char)key;
+						    Master_Key_Input[letterCount + 1] = '\0'; // Null-terminate
+						    letterCount++;
+						}
+						key = GetCharPressed();
+					}
+					    // Rimuovi carattere con backspace
+					    if (IsKeyPressed(KEY_BACKSPACE))
+					    {
+						if (letterCount > 0)
+						{
+						    letterCount--;
+						    Master_Key_Input[letterCount] = '\0';
+						}
+					    }
+					  
+				}
 				fgets(Master_Key_File, sizeof(Master_Key_File), log_in);
 				if(strcmp(Master_Key_Input, Master_Key_File)==0)
 					{
-						DrawText("Password correct", ScreenWidth/2, ScreenHeight/2, 30, BLACK);
 						currentscreen=HOME;		
-					}	
-				EndDrawing();
+					}
+				log_in_page_check_password(log_in_ins_passw, Master_Key_Input, log_in_new_passw);	
 			}
 	    } break;
         case HOME:
             {
                 // CheckCollisionPointRec controlla se il mouse e' sopra read o insert e se ha cliccato
-                if (CheckCollisionPointRec(GetMousePosition(), Read)&&IsMouseButtonPressed(0)&&flagpassword) 
+                if (CheckCollisionPointRec(GetMousePosition(), Read)&&IsMouseButtonPressed(0)) 
                     {
                         ReadPressed=1;
                     }
-                if (CheckCollisionPointRec(GetMousePosition(), Insert)&&IsMouseButtonPressed(0)&&flagpassword) 
+                if (CheckCollisionPointRec(GetMousePosition(), Insert)&&IsMouseButtonPressed(0)) 
                     {
                         InsertPressed=1;
                     }
 
-                // Gestione input
-                if (!flagpassword)
-                {
-                    int key = GetCharPressed();
-                    while (key > 0)
-                    {
-                        if ((key >= 32) && (key <= 125) && (letterCount < MAX_INPUT_CHARS))
-                        {
-                            text[letterCount] = (char)key;
-                            text[letterCount + 1] = '\0'; // Null-terminate
-                            letterCount++;
-                        }
-                        key = GetCharPressed();
-                    }
-
-                    // Rimuovi carattere con backspace
-                    if (IsKeyPressed(KEY_BACKSPACE))
-                    {
-                        if (letterCount > 0)
-                        {
-                            letterCount--;
-                            text[letterCount] = '\0';
-                        }
-                    }
-                }
-                //controlla se esiste testo nel buffer e appena si preme enter fa il check sulla password
-                //poi prende la casella di testo e la svuota cosi da scrivere altro testo
-                if(strlen(text)>0 && GetKeyPressed()==257)
-                {
-                    if(strcmp(text, password)==0) //password inserita corretta, mette il flagpassword a true cosi non puoi piu inserire il testo
-                    {
-                        text[0]='\0';
-                        flagpassword=true;
-
-                    }
-                    else //password wrong, it delete the buffer and you can try again
-                    {
-                        text[0]='\0';
-                    }
-                    letterCount=0;
-                }
                 //CHANGE SCREEN WINDOW BETWEEN INSERT OR READ BY SWITCHING CASE 
                 if (InsertPressed==1)
                 {
@@ -203,7 +162,7 @@ void window(FILE *fp)
                     currentscreen=READ;
                     ReadPressed=0;
                 }
-                homescreen(flagpassword, Read, Insert, PasswordCheck, Passwordtest,text);
+                homescreen(Read, Insert, log_out);
             } break;
         
         case READ:

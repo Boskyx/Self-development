@@ -24,25 +24,31 @@ void log_in_page(Rectangle log_in_ins_passw, Rectangle log_in_send_pass,char Mas
 	EndDrawing();
 
 }
-
-
-void homescreen(bool flag,  Rectangle Read,  Rectangle Insert, Rectangle PasswordCheck, Rectangle PasswordTest, char text[])
+void log_in_page_check_password(Rectangle log_in_ins_passw, char Master_Key_Input[], int log_in_new_passw)
 {
-        BeginDrawing();
+	BeginDrawing();                              
+        ClearBackground(RAYWHITE);               
+        DrawRectangleRec(log_in_ins_passw,LIGHTGRAY);
+	DrawText("Digit the password, if it's correct automatically you'll send\nto the HOME page", 10, 10, 20, BLACK);
+	DrawText(Master_Key_Input, log_in_ins_passw.x+5, log_in_ins_passw.y+5, 20, BLACK);
+	DrawRectangleLinesEx(log_in_ins_passw, 5, (log_in_new_passw==0)? LIGHTGRAY : GREEN);
+	EndDrawing();
+}
+
+
+void homescreen(Rectangle Read,  Rectangle Insert, Rectangle log_out)
+{
+        /**/
+	BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawRectangleRec(Read, LIGHTGRAY);
         DrawRectangleRec(Insert, LIGHTGRAY);
-        if(flag)
-            DrawRectangleRec(PasswordCheck, GREEN);
-        else
-            DrawRectangleRec(PasswordCheck, RED);
-        DrawRectangleRec(PasswordTest, LIGHTGRAY);
-        DrawRectangleLinesEx(Read, 5, (flag==false) ? LIGHTGRAY : GREEN);
-        DrawRectangleLinesEx(Insert, 5, (flag==false) ? LIGHTGRAY : GREEN);
+	DrawRectangleRec(log_out, BLUE);
+	DrawText("QUIT", log_out.x, log_out.y,30 ,BLACK);
+        DrawRectangleLinesEx(Read, 5, GREEN);
+        DrawRectangleLinesEx(Insert, 5, GREEN);
         DrawText("Read", Read.x + 5, Read.y + 15, 20, BLACK);
         DrawText("Insert", Insert.x+5, Insert.y+15, 20, BLACK);
-        DrawText("Digita password", 5, 30, 15, BLACK);
-        DrawText(text, PasswordTest.x + 5, PasswordTest.y + 15, 15, BLACK);
         EndDrawing();
 }
 void insertscreen(Rectangle Name, Rectangle Home,Rectangle Password, Rectangle Send, char name[], char password[], int namePressed, int passwordPressed)
